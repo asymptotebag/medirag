@@ -1,0 +1,20 @@
+<form action="{{ url_for('handle_query') }}" method="post">
+    <input type="text" name="query" size="100" placeholder="Query">
+    <button type="submit">Submit</button>
+</form>
+<a href="/logout">logout</a>
+
+<h2>Chat History</h2>
+
+{% for i in range(chat_len-1, -1, -1) %}
+<p><b>Question: </b>{{ chat_history[i][0] }}</p>
+<p><b>Response: </b>{{ chat_history[i][1] }}</p>
+<br>
+<p><b>Supporting Evidence:</b></p>
+{% for line in chat_history[i][2] %}
+<p> {{ line['kwargs']['metadata'] }} </p>
+<p> {{ line['kwargs']['page_content'] }} </p>
+<br>
+{% endfor %}
+<hr>
+{% endfor %}
